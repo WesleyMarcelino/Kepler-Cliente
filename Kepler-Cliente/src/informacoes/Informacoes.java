@@ -2,7 +2,7 @@ package informacoes;
 
 public class Informacoes {
 	private static final String nomeDoPrograma = "Kepler - Cliente";
-	private static final String versao = "0,001";
+	private static final String versao = "0,003";
 	private static String desenvolvedores = "Wesley Marcelino";
 	
 	public static String getDesenvolvedores() {

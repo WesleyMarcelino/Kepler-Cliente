@@ -4,6 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.UnknownHostException;
 
 import informacoes.Informacoes;
 
@@ -15,6 +19,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import cliente.Cliente;
+import objetos.Equipe;
 import objetos.Equipes;
 
 public class TelaInicial extends JFrame {
@@ -27,7 +33,11 @@ public class TelaInicial extends JFrame {
 	private JPanel centro;
 	private JLabel textoEscolherEquipe;
 	private JButton conectar;
+	private static Cliente cliente ;	
+	private static Equipe equipe;
 	
+
+
 	private JComboBox<Object> selecaoDeEquipes;
 	public TelaInicial(){
 		BorderLayout layoutTelaInicial = new BorderLayout();
@@ -39,7 +49,7 @@ public class TelaInicial extends JFrame {
 		this.add(Centro(), layoutTelaInicial.CENTER);
 		this.add(Rodape(), layoutTelaInicial.SOUTH);
 		this.setLocationRelativeTo(null);
-		this.setVisible(true);
+		
 	}
 	 
 	private JPanel Titulo(){ 
@@ -61,9 +71,23 @@ public class TelaInicial extends JFrame {
 			for (int i = 0; i < Equipes.getEquipes().size(); i++){
 			selecaoDeEquipes.addItem(Equipes.getEquipes().get(i));
 			}		
-			textoEscolherEquipe.setText("Entre com sua equipe : ");
+		
+		    textoEscolherEquipe.setText("Entre com sua equipe : ");
 			conectar = new JButton();
 			conectar.setText("Conectar");
+			conectar.addActionListener( new ActionListener() {  
+	            public void actionPerformed(ActionEvent e) {
+	            	System.out.println("clicou em conectar");
+	            	cliente = new Cliente("192.168.0.105",12345, selecaoDeEquipes.getSelectedItem().toString());
+	        		equipe = new Equipe("Equipe :"+selecaoDeEquipes.getSelectedItem().toString());
+	            	Thread threadDeEnvio = new Thread(cliente);
+	        		threadDeEnvio.start();
+	        		ControladoraDeTelas.escondeTelaInicial();
+	        		mostrarTelaDeChat();
+	        	
+	            }
+	   }); 
+			
 			centro.add(textoEscolherEquipe,layoutCentro);
 			centro.add(selecaoDeEquipes,layoutCentro);
 			centro.add(conectar, layoutCentro);
@@ -81,6 +105,17 @@ public class TelaInicial extends JFrame {
 		return rodape;
 	}
 	
+	public static void mostrarTelaDeChat(){
+		ControladoraDeTelas.mostraTelaDeChat(equipe, cliente);
+	}
 	
+	
+	public static Cliente getCliente() {
+		return cliente;
+	}
+
+	public static void setCliente(Cliente cliente) {
+		TelaInicial.cliente = cliente;
+	}
 	
 }
