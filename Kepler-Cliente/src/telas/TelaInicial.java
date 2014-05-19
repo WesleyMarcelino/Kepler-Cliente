@@ -83,8 +83,7 @@ public class TelaInicial extends JFrame {
 	            	Thread threadDeEnvio = new Thread(cliente);
 	        		threadDeEnvio.start();
 	        		ControladoraDeTelas.escondeTelaInicial();
-	        		mostrarTelaDeChat();
-	        	
+	        		ControladoraDeTelas.mostraTelaPrincipal();
 	            }
 	   }); 
 			

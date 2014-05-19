@@ -6,7 +6,7 @@ import objetos.Equipe;
 public class ControladoraDeTelas {
 	private static TelaInicial telaInicial = new TelaInicial();
 	private static TelaDeChat telaDeChat ;
-	
+	private static TelaPrincipal telaPrincipal  ;
 	
 
 	public static void mostraTelaInicial(){
@@ -25,5 +25,12 @@ public class ControladoraDeTelas {
 	public static TelaDeChat getTelaDeChat() {
 		return telaDeChat;
 	}
-
+	public static void mostraTelaPrincipal() {
+		telaPrincipal = new TelaPrincipal();
+		telaPrincipal.setVisible(true);
+	}
+	public static void escondeTelaPrincipal() {
+		telaPrincipal.setVisible(false);
+	}
+	
 }
