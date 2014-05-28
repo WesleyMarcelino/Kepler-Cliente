@@ -1,49 +1,57 @@
 package objetos;
 
 public class Industria {
-private String nome;
-private Endereco endereco;
-private String status;
-private long id;
+	private String nome;
+	private String endereco;
+	private String status;
+	private long id;
 
-public Industria(long id, String nome, Endereco endereco,String status ){
-	this.id = id;
-	this.nome = nome;
-	this.endereco = endereco;
-	this.status = status;
-}
+	public Industria(long id, String nome, String enderecoIndustria,
+			String status) {
+		this.id = id;
+		this.nome = nome;
+		this.endereco = enderecoIndustria;
+		this.status = status;
+	}
 
+	public String getNome() {
+		return nome;
+	}
 
-public String getNome() {
-	return nome;
-}
-public void setNome(String nome) {
-	this.nome = nome;
-}
-public Endereco getEndereco() {
-	return endereco;
-}
-public void setEndereco(Endereco endereco) {
-	this.endereco = endereco;
-}
-public String getStatus() {
-	return status;
-}
-public void setStatus(String status) {
-	this.status = status;
-}
-public String toString(){
-	return ("Id :"+this.getId()+ "Industria :"+ this.getNome() +"Endereço :"+ this.getEndereco()+"Status :"+this.getStatus());
-}
-public String paraBotao(){
-return ("<html>Industria : "+this.getNome()+"<br/>Status : "+this.getStatus()+"</html>");
-}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-public long getId() {
-	
-	return id;
-}
+	public String getEndereco() {
+		return endereco;
+	}
 
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String toString() {
+		return ("Id :" + this.getId() + "Industria :" + this.getNome()
+				+ "Endereço :" + this.getEndereco() + "Status :" + this
+					.getStatus());
+	}
+
+	public String paraBotao() {
+		return ("<html>Industria : " + this.getNome() + "<br/>Status : "
+				+ this.getStatus() + "</html>");
+	}
+
+	public long getId() {
+
+		return id;
+	}
 
 }

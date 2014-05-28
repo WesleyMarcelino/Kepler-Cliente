@@ -1,7 +1,7 @@
 package objetos;
 
 public class Equipe {
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -12,13 +12,12 @@ public class Equipe {
 
 	private String nome;
 
-
-	public Equipe(String nome){
+	public Equipe(String nome) {
 		this.nome = nome;
 	}
-	
-	public String toString(){
-		return (nome); 
+
+	public String toString() {
+		return (nome);
 	}
 
 }

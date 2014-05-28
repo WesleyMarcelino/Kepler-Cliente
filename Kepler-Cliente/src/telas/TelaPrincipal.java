@@ -34,18 +34,19 @@ public class TelaPrincipal extends JFrame {
 	private JButton[] botoesIndustrias;
 	private JButton botaoChat;
 	private JButton adicionarIndustrias;
-	
+
 	public TelaPrincipal() {
 		BorderLayout layoutTelaPrincipal = new BorderLayout();
-		this.setTitle(Informacoes.getNomedoprograma()+" "+Informacoes.getVersao());
+		this.setTitle(Informacoes.getNomedoprograma() + " "
+				+ Informacoes.getVersao());
 		this.setLayout(layoutTelaPrincipal);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setSize(800,600);
+		this.setSize(800, 600);
 		this.setResizable(false);
-		this.setLocationRelativeTo(null);		
+		this.setLocationRelativeTo(null);
 		this.add(Titulo(), layoutTelaPrincipal.NORTH);
-		this.add(Rodape(),layoutTelaPrincipal.SOUTH);
-		this.add(Industrias(),layoutTelaPrincipal.WEST);
+		this.add(Rodape(), layoutTelaPrincipal.SOUTH);
+		this.add(Industrias(), layoutTelaPrincipal.WEST);
 		try {
 			this.add(Chat(), layoutTelaPrincipal.CENTER);
 		} catch (IOException e) {
@@ -53,36 +54,36 @@ public class TelaPrincipal extends JFrame {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	private JPanel Industrias(){
-		GridLayout layoutIndustrias = new GridLayout(10,1);
+
+	private JPanel Industrias() {
+		GridLayout layoutIndustrias = new GridLayout(10, 1);
 		industria = new JPanel();
 		industria.setLayout(layoutIndustrias);
 		tituloIndustrias = new JLabel();
 		tituloIndustrias.setText("Industrias cadastradas : ");
 		botoesIndustrias = new JButton[Industrias.getIndustrias().size()];
 		industria.add(tituloIndustrias);
-		for (int i = 0; i < Industrias.getIndustrias().size(); i++){
+		System.out.println("Primeira industria da lista : "
+				+ Industrias.getIndustrias().get(0));
+		for (int i = 0; i < Industrias.getIndustrias().size(); i++) {
 			criarBotoes(i);
-	    	industria.add(botoesIndustrias[i]);
+			industria.add(botoesIndustrias[i]);
 		}
-			return industria;
+		return industria;
 	}
-	
-	private JPanel Titulo(){ 
+
+	private JPanel Titulo() {
 		fonteTextoDoTitulo = new Font("Calibri", Font.PLAIN, 24);
 		titulo = new JPanel();
 		textoDoTitulo = new JLabel();
 		textoDoTitulo.setFont(fonteTextoDoTitulo);
 		textoDoTitulo.setText("Secretaria de Estado do Meio Ambiente");
-	    titulo.add(textoDoTitulo);
-	    return titulo;
+		titulo.add(textoDoTitulo);
+		return titulo;
 	}
-	
-	
-	private JPanel Chat() throws IOException{
-		GridLayout layoutChat = new GridLayout(10,1);
+
+	private JPanel Chat() throws IOException {
+		GridLayout layoutChat = new GridLayout(10, 1);
 		chat = new JPanel();
 		chat.setLayout(layoutChat);
 		fontTituloChat = new Font("Calibri", Font.PLAIN, 24);
@@ -91,41 +92,38 @@ public class TelaPrincipal extends JFrame {
 		chat.add(tituloChat);
 		botaoChat = new JButton();
 		botaoChat.setText("Iniciar chat");
-		botaoChat.addActionListener( new ActionListener() {  
-		      public void actionPerformed(ActionEvent e) {
-		    //	ControladoraDeTelas.mostraTelaDeChat(equipe, cliente);
-		      TelaInicial.mostrarTelaDeChat();
-		      }  
- 		}); 
+		botaoChat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// ControladoraDeTelas.mostraTelaDeChat(equipe, cliente);
+				TelaInicial.mostrarTelaDeChat();
+			}
+		});
 		chat.add(botaoChat);
-		return chat;	
+		return chat;
 	}
-	
-	
+
 	private JButton criarBotoes(final int index) {
 		botoesIndustrias[index] = new JButton();
-		botoesIndustrias[index].setText(Industrias.getIndustrias().get(index).paraBotao());
-		botoesIndustrias[index].addActionListener( new ActionListener() {  
-	      public void actionPerformed(ActionEvent e) {
-	     System.out.println("debug : Clicou na Industria :" +Industrias.getIndustrias().get(index).getNome());
-	  //   ControladoraDeTelas.mostrarTelaIndustria(Industrias.getIndustrias().get(index));
-	       }  
-		}); 
+		botoesIndustrias[index].setText(Industrias.getIndustrias().get(index)
+				.paraBotao());
+		botoesIndustrias[index].addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("debug : Clicou na Industria :"
+						+ Industrias.getIndustrias().get(index).getNome());
+				// ControladoraDeTelas.mostrarTelaIndustria(Industrias.getIndustrias().get(index));
+			}
+		});
 		return botoesIndustrias[index];
 	}
-	
-	
-	public JPanel Rodape(){
+
+	public JPanel Rodape() {
 		rodape = new JPanel();
 		textoRodape = new JTextField();
 		textoRodape.setEditable(false);
-		textoRodape.setText("Desenvolvido por :" +Informacoes.getDesenvolvedores());
+		textoRodape.setText("Desenvolvido por :"
+				+ Informacoes.getDesenvolvedores());
 		rodape.add(textoRodape);
-		return rodape;		
+		return rodape;
 	}
-	
-	
-	
-	
 
 }

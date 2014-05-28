@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import cliente.Cliente;
+import db.IndustriaTxt;
 import objetos.Equipe;
 import objetos.Equipes;
 
@@ -33,82 +34,91 @@ public class TelaInicial extends JFrame {
 	private JPanel centro;
 	private JLabel textoEscolherEquipe;
 	private JButton conectar;
-	private static Cliente cliente ;	
+	private static Cliente cliente;
 	private static Equipe equipe;
-	
-
+	private JLabel labelServidor;
+	private JTextField servidor;
 
 	private JComboBox<Object> selecaoDeEquipes;
-	public TelaInicial(){
+
+	public TelaInicial() {
 		BorderLayout layoutTelaInicial = new BorderLayout();
-		this.setTitle(Informacoes.getNomedoprograma()+" "+Informacoes.getVersao());
+		this.setTitle(Informacoes.getNomedoprograma() + " "
+				+ Informacoes.getVersao());
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setSize(800,200);
+		this.setSize(800, 200);
 		this.setResizable(false);
 		this.add(Titulo(), layoutTelaInicial.NORTH);
 		this.add(Centro(), layoutTelaInicial.CENTER);
 		this.add(Rodape(), layoutTelaInicial.SOUTH);
 		this.setLocationRelativeTo(null);
-		
+
 	}
-	 
-	private JPanel Titulo(){ 
+
+	private JPanel Titulo() {
 		fonteTextoDoTitulo = new Font("Calibri", Font.PLAIN, 24);
 		titulo = new JPanel();
 		textoDoTitulo = new JLabel();
 		textoDoTitulo.setFont(fonteTextoDoTitulo);
 		textoDoTitulo.setText(Informacoes.getNomedoprograma());
-	    titulo.add(textoDoTitulo);
-	    return titulo;
+		titulo.add(textoDoTitulo);
+		return titulo;
 	}
-	
-	
+
 	private JPanel Centro() {
-			FlowLayout layoutCentro = new FlowLayout();
-			centro = new JPanel();
-			textoEscolherEquipe = new JLabel();
-			selecaoDeEquipes = new JComboBox<Object>();
-			for (int i = 0; i < Equipes.getEquipes().size(); i++){
+		FlowLayout layoutCentro = new FlowLayout();
+		centro = new JPanel();
+		textoEscolherEquipe = new JLabel();
+		selecaoDeEquipes = new JComboBox<Object>();
+		for (int i = 0; i < Equipes.getEquipes().size(); i++) {
 			selecaoDeEquipes.addItem(Equipes.getEquipes().get(i));
-			}		
-		
-		    textoEscolherEquipe.setText("Entre com sua equipe : ");
-			conectar = new JButton();
-			conectar.setText("Conectar");
-			conectar.addActionListener( new ActionListener() {  
-	            public void actionPerformed(ActionEvent e) {
-	            	System.out.println("clicou em conectar");
-	            	cliente = new Cliente("192.168.0.105",12345, selecaoDeEquipes.getSelectedItem().toString());
-	        		equipe = new Equipe("Equipe :"+selecaoDeEquipes.getSelectedItem().toString());
-	            	Thread threadDeEnvio = new Thread(cliente);
-	        		threadDeEnvio.start();
-	        		ControladoraDeTelas.escondeTelaInicial();
-	        		ControladoraDeTelas.mostraTelaPrincipal();
-	            }
-	   }); 
-			
-			centro.add(textoEscolherEquipe,layoutCentro);
-			centro.add(selecaoDeEquipes,layoutCentro);
-			centro.add(conectar, layoutCentro);
-			return centro;
 		}
-	
-	private JPanel Rodape(){
+
+		textoEscolherEquipe.setText("Entre com sua equipe : ");
+		conectar = new JButton();
+		conectar.setText("Conectar");
+		conectar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				System.out.println("clicou em conectar");
+				cliente = new Cliente(servidor.getText(), 12345,
+						selecaoDeEquipes.getSelectedItem().toString());
+				equipe = new Equipe("Equipe :"
+						+ selecaoDeEquipes.getSelectedItem().toString());
+				Thread threadDeEnvio = new Thread(cliente);
+				threadDeEnvio.start();
+
+			}
+		});
+
+		centro.add(textoEscolherEquipe, layoutCentro);
+		centro.add(selecaoDeEquipes, layoutCentro);
+		labelServidor = new JLabel();
+		labelServidor.setText("Ip do servidor de chat: ");
+		servidor = new JTextField();
+		servidor.setText("localhost");
+		centro.add(labelServidor);
+		centro.add(servidor);
+		centro.add(conectar, layoutCentro);
+		return centro;
+	}
+
+	private JPanel Rodape() {
 		rodape = new JPanel();
 		textoRodape = new JTextField();
-		textoRodape.setText("Desenvolvido por : "+Informacoes.getDesenvolvedores());
+		textoRodape.setText("Desenvolvido por : "
+				+ Informacoes.getDesenvolvedores());
 		fonteTextoRodape = new Font("Calibri", Font.PLAIN, 12);
 		textoRodape.setFont(fonteTextoRodape);
 		textoRodape.setEditable(false);
 		rodape.add(textoRodape);
 		return rodape;
 	}
-	
-	public static void mostrarTelaDeChat(){
+
+	public static void mostrarTelaDeChat() {
 		ControladoraDeTelas.mostraTelaDeChat(equipe, cliente);
 	}
-	
-	
+
 	public static Cliente getCliente() {
 		return cliente;
 	}
@@ -116,5 +126,5 @@ public class TelaInicial extends JFrame {
 	public static void setCliente(Cliente cliente) {
 		TelaInicial.cliente = cliente;
 	}
-	
+
 }
